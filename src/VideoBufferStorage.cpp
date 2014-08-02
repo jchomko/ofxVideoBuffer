@@ -15,6 +15,7 @@ videoBuffer::videoBuffer()
     //drawPathCounter = 0;
     canStartLoop = false;
     hasFinishedPlaying = false;
+   
 }
 //--------------------------------------------------------------
 videoBuffer::~videoBuffer()
@@ -230,7 +231,15 @@ void videoBuffer::getNewImages(vector<ofImage>img)
     
 }
 //--------------------------------------------------------------
+int videoBuffer::getNumberOfFrames()
+{
+    if (!buffer.empty())
+    {
+        return buffer.size();
+    }
+}
+//--------------------------------------------------------------
 void videoBuffer::renderImages()
 {
-
+    
 }

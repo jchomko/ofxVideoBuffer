@@ -12,6 +12,7 @@
 #include <iostream>
 #include "ofMain.h"
 
+
 typedef struct {
     string blobID;
     vector<ofVec2f> path;
@@ -30,21 +31,24 @@ public:
     void drawMini(int x, int y);
     void renderImages();
     
+    // Getters
     void getNewImages(vector<ofImage>img);
     void getPath(vector<ofVec2f>paths);
+    int getNumberOfFrames();
+    
     
     void run();
     void stop();
     bool isFinished();
     void start();
     void clear();
-
+    
 private:
     vector<ofImage> buffer;
     vector<ofVec2f> bPath;
     int progress;
     int drawPathCounter;
-    
+
     bool canStartLoop;
     bool hasFinishedPlaying;
 };
