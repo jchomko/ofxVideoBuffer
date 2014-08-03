@@ -1,9 +1,9 @@
-//
-//  VideoBufferStorage.h
-//
-//  Created by David Haylock on 28/07/2014.
-//
-//
+//--------------------------------------------------------------
+//* Name: VideoBufferStorage.h
+//* Project: Playable City 2014 Award
+//* Author: David Haylock
+//* Creation Date: 28-07-2014
+//--------------------------------------------------------------
 
 #include <iostream>
 #include "ofMain.h"
