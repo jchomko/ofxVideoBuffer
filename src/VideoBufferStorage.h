@@ -1,22 +1,12 @@
 //
 //  VideoBufferStorage.h
-//  ShadowingStage1
 //
 //  Created by David Haylock on 28/07/2014.
 //
 //
 
-#ifndef __ShadowingStage1__VideoBufferStorage__
-#define __ShadowingStage1__VideoBufferStorage__
-
 #include <iostream>
 #include "ofMain.h"
-
-
-typedef struct {
-    string blobID;
-    vector<ofVec2f> path;
-} blobPaths;
 
 class videoBuffer : public ofSimpleApp {
     
@@ -36,11 +26,11 @@ public:
     void getPath(vector<ofVec2f>paths);
     int getNumberOfFrames();
     
-    
-    void run();
-    void stop();
     bool isFinished();
+    bool isPlaying();
+    
     void start();
+    void stop();
     void clear();
     
 private:
@@ -48,10 +38,8 @@ private:
     vector<ofVec2f> bPath;
     int progress;
     int drawPathCounter;
-
+    bool stillPlaying;
     bool canStartLoop;
     bool hasFinishedPlaying;
 };
 
-
-#endif /* defined(__ShadowingStage1__VideoBufferStorage__) */

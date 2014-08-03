@@ -1,9 +1,7 @@
 //
 //  VideoBufferStorage.cpp
-//  ShadowingStage1
 //
 //  Created by David Haylock on 28/07/2014.
-//
 //
 
 #include "VideoBufferStorage.h"
@@ -12,10 +10,8 @@
 videoBuffer::videoBuffer()
 {
     progress = 0;
-    //drawPathCounter = 0;
     canStartLoop = false;
     hasFinishedPlaying = false;
-   
 }
 //--------------------------------------------------------------
 videoBuffer::~videoBuffer()
@@ -25,12 +21,6 @@ videoBuffer::~videoBuffer()
 //--------------------------------------------------------------
 void videoBuffer::update()
 {
-    /*
-    if(progress >= buffer.size()-1)
-    {
-        progress = 0;
-    }
-    */
     if(canStartLoop == true)
     {
         if (!isFinished())
@@ -45,51 +35,31 @@ void videoBuffer::update()
         }
         else
         {
-            
+           
         }
     }
     else
     {
         
     }
-    
-    /*
-    if(drawPathCounter >= bPath.size()-1)
-    {
-        drawPathCounter = 0;
-    }
-    if(!bPath.empty())
-    {
-        if (ofGetFrameNum() % 1 == 0)
-        {
-            drawPathCounter++;
-        }
-    }
-    */
 }
 //--------------------------------------------------------------
 void videoBuffer::draw()
 {
-    //ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
     ofPushStyle();
     ofSetColor(255);
     if (canStartLoop == true)
     {
         if (!buffer.empty() && buffer.size() >= 30)
         {
-            //buffer[progress].mirror(false, true);
             buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
         }
     }
     else
     {
-        if (!buffer.empty() && buffer.size() >= 30)
-        {
-         //   buffer[0].draw(0, 0,ofGetWidth(),ofGetHeight());
-        }
+        
     }
     ofPopStyle();
-    //ofDisableBlendMode();
 }
 //--------------------------------------------------------------
 void videoBuffer::drawMini(int x, int y)
@@ -102,23 +72,8 @@ void videoBuffer::drawMini(int x, int y)
         buffer[progress].draw(x, y,320/4,240/4);
     }
     
-    ofPushMatrix();
-    ofTranslate(x, y);
-    ofNoFill();
-    if (!bPath.empty())
-    {
-        ofSetColor(255, 0, 0);
-        ofBeginShape();
-        for (int p = 0; p < bPath.size(); p++)
-        {
-            ofVertex(ofMap(bPath[p].x,0,320,0,320/4),ofMap(bPath[p].y,0,240,0,240/4));
-        }
-        ofEndShape(false);
-    }
-    
-    ofSetColor(0);
-    ofPopMatrix();
-    ofDrawBitmapStringHighlight(ofToString(progress), x+10, y+10);
+    ofDrawBitmapStringHighlight(ofToString(progress), x, y);
+    ofSetColor(0, 0, 0);
     ofNoFill();
     ofRect(x, y, 320/4,240/4);
     ofPopStyle();
@@ -148,7 +103,8 @@ void videoBuffer::start()
 {
     //progress = 0;
     //drawPathCounter = 0;
-    ofLog(OF_LOG_NOTICE, "Started Playing Buffer");
+    //ofLog(OF_LOG_NOTICE, "Started Playing Buffer");
+    stillPlaying = true;
     canStartLoop = true;
 }
 //--------------------------------------------------------------
@@ -158,26 +114,26 @@ void videoBuffer::stop()
     
 }
 //--------------------------------------------------------------
-void videoBuffer::clear()
-{
-    
-    
-}
-//--------------------------------------------------------------
 bool videoBuffer::isFinished()
 {
     if (progress >= buffer.size()-1 && canStartLoop == true)
     {
         
         canStartLoop = false;
+        stillPlaying = false;
         progress = 0;
-        ofLog(OF_LOG_NOTICE, "Buffer has Finished Playing");
+        //ofLog(OF_LOG_NOTICE, "Buffer has Finished Playing");
         return true;
     }
     else
     {
         return false;
     }
+}
+//--------------------------------------------------------------
+bool videoBuffer::isPlaying()
+{
+    return stillPlaying;
 }
 //--------------------------------------------------------------
 void videoBuffer::getPath(vector<ofVec2f> paths)
