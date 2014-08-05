@@ -102,27 +102,31 @@ void videoBuffer::drawBlobPath()
 void videoBuffer::start()
 {
     //progress = 0;
-    //drawPathCounter = 0;
-    //ofLog(OF_LOG_NOTICE, "Started Playing Buffer");
+    
+    stillPlaying = true;
+    canStartLoop = true;
+}
+//--------------------------------------------------------------
+void videoBuffer::reset()
+{
+    progress = 0;
     stillPlaying = true;
     canStartLoop = true;
 }
 //--------------------------------------------------------------
 void videoBuffer::stop()
 {
-    progress = 0;
-    
+    //progress = 0;
+    stillPlaying = false;
+    canStartLoop = false;
+    //progress = 0;
 }
 //--------------------------------------------------------------
 bool videoBuffer::isFinished()
 {
     if (progress >= buffer.size()-1 && canStartLoop == true)
     {
-        
-        canStartLoop = false;
-        stillPlaying = false;
-        progress = 0;
-        //ofLog(OF_LOG_NOTICE, "Buffer has Finished Playing");
+        stop();
         return true;
     }
     else

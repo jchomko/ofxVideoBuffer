@@ -28,7 +28,8 @@ public:
     
     bool isFinished();
     bool isPlaying();
-    
+
+    void reset();
     void start();
     void stop();
     void clear();
