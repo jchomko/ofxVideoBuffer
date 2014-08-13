@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "ofMain.h"
-#include "ofxTween.h"
 class videoBuffer : public ofSimpleApp {
     
 public:
@@ -44,7 +43,6 @@ private:
     bool stillPlaying;
     bool canStartLoop;
     bool hasFinishedPlaying;
-    ofxTween fade;
-    ofxEasingLinear easingLinear;
+
 };
 

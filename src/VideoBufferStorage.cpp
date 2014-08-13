@@ -35,8 +35,7 @@ void videoBuffer::update()
             }
             if (progress >= buffer.size()-30)
             {
-                //fade.setParameters(1, easingLinear, ofxTween::easeOut, 255, 0, 1000, 0);
-                //fade.start();
+             
             }
         }
         else
@@ -53,20 +52,7 @@ void videoBuffer::update()
 void videoBuffer::draw()
 {
     ofPushStyle();
-    /*
-    if (progress <= 30)
-    {
-        _fadeValue += _fadeRate;
-    }
-    else if (progress > 30 && progress < buffer.size()-30)
-    {
-        _fadeValue = 255;
-    }
-    else if (progress >= buffer.size()-30)
-    {
-        _fadeValue -= _fadeRate;
-    }
-    */
+    
     ofSetColor(255);
     if (canStartLoop == true)
     {
@@ -123,7 +109,7 @@ void videoBuffer::start()
 {
     stillPlaying = true;
     canStartLoop = true;
-    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,0, 255, 1000,0);
+    
     
 }
 //--------------------------------------------------------------
@@ -132,7 +118,7 @@ void videoBuffer::reset()
     progress = 0;
     stillPlaying = true;
     canStartLoop = true;
-    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,0, 255, 1000,0);
+    
 }
 //--------------------------------------------------------------
 void videoBuffer::stop()
@@ -140,7 +126,7 @@ void videoBuffer::stop()
   
     stillPlaying = false;
     canStartLoop = false;
-    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,255, 0, 100,0);
+    
     //progress = 0;
 }
 //--------------------------------------------------------------
