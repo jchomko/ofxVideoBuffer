@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "ofMain.h"
-
+#include "ofxTween.h"
 class videoBuffer : public ofSimpleApp {
     
 public:
@@ -22,6 +22,7 @@ public:
     void renderImages();
     
     // Getters
+    void getNewImage(ofImage img);
     void getNewImages(vector<ofImage>img);
     void getPath(vector<ofVec2f>paths);
     int getNumberOfFrames();
@@ -29,6 +30,7 @@ public:
     bool isFinished();
     bool isPlaying();
 
+    
     void reset();
     void start();
     void stop();
@@ -42,5 +44,7 @@ private:
     bool stillPlaying;
     bool canStartLoop;
     bool hasFinishedPlaying;
+    ofxTween fade;
+    ofxEasingLinear easingLinear;
 };
 

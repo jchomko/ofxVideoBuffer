@@ -12,6 +12,7 @@ videoBuffer::videoBuffer()
     progress = 0;
     canStartLoop = false;
     hasFinishedPlaying = false;
+
 }
 //--------------------------------------------------------------
 videoBuffer::~videoBuffer()
@@ -32,6 +33,11 @@ void videoBuffer::update()
                     progress++;
                 }
             }
+            if (progress >= buffer.size()-30)
+            {
+                //fade.setParameters(1, easingLinear, ofxTween::easeOut, 255, 0, 1000, 0);
+                //fade.start();
+            }
         }
         else
         {
@@ -47,6 +53,20 @@ void videoBuffer::update()
 void videoBuffer::draw()
 {
     ofPushStyle();
+    /*
+    if (progress <= 30)
+    {
+        _fadeValue += _fadeRate;
+    }
+    else if (progress > 30 && progress < buffer.size()-30)
+    {
+        _fadeValue = 255;
+    }
+    else if (progress >= buffer.size()-30)
+    {
+        _fadeValue -= _fadeRate;
+    }
+    */
     ofSetColor(255);
     if (canStartLoop == true)
     {
@@ -101,10 +121,10 @@ void videoBuffer::drawBlobPath()
 //--------------------------------------------------------------
 void videoBuffer::start()
 {
-    //progress = 0;
-    
     stillPlaying = true;
     canStartLoop = true;
+    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,0, 255, 1000,0);
+    
 }
 //--------------------------------------------------------------
 void videoBuffer::reset()
@@ -112,13 +132,15 @@ void videoBuffer::reset()
     progress = 0;
     stillPlaying = true;
     canStartLoop = true;
+    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,0, 255, 1000,0);
 }
 //--------------------------------------------------------------
 void videoBuffer::stop()
 {
-    //progress = 0;
+  
     stillPlaying = false;
     canStartLoop = false;
+    //fade.setParameters(1,easingLinear,ofxTween::easeOut ,255, 0, 100,0);
     //progress = 0;
 }
 //--------------------------------------------------------------
@@ -165,6 +187,11 @@ void videoBuffer::getPath(vector<ofVec2f> paths)
     
 }
 //--------------------------------------------------------------
+void videoBuffer::getNewImage(ofImage img)
+{
+    buffer.push_back(img);
+}
+//--------------------------------------------------------------
 void videoBuffer::getNewImages(vector<ofImage>img)
 {
     
@@ -197,6 +224,11 @@ int videoBuffer::getNumberOfFrames()
     {
         return buffer.size();
     }
+}
+//--------------------------------------------------------------
+void videoBuffer::clear()
+{
+    buffer.clear();
 }
 //--------------------------------------------------------------
 void videoBuffer::renderImages()
