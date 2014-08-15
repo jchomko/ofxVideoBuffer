@@ -15,7 +15,7 @@ public:
     
     void update();
     
-    void draw();
+    void draw(int color);
     void drawBlobPath();
     void drawMini(int x, int y);
     void renderImages();
@@ -28,7 +28,7 @@ public:
     
     bool isFinished();
     bool isPlaying();
-
+    bool isNearlyFinished();
     
     void reset();
     void start();

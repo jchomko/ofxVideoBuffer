@@ -49,15 +49,29 @@ void videoBuffer::update()
     }
 }
 //--------------------------------------------------------------
-void videoBuffer::draw()
+void videoBuffer::draw(int color)
 {
     ofPushStyle();
+    //isNearlyFinished();
     
-    ofSetColor(255);
+    
     if (canStartLoop == true)
     {
         if (!buffer.empty() && buffer.size() >= 30)
         {
+            //ofSetColor(255, 255, 255);
+            if (progress <= 60)
+            {
+                ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+            }
+            else if (progress >= 60 && progress <= buffer.size()-30)
+            {
+                ofSetColor(255,255);
+            }
+            else if (progress >= buffer.size()-30)
+            {
+                ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+            }
             buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
         }
     }
@@ -109,8 +123,6 @@ void videoBuffer::start()
 {
     stillPlaying = true;
     canStartLoop = true;
-    
-    
 }
 //--------------------------------------------------------------
 void videoBuffer::reset()
@@ -140,6 +152,13 @@ bool videoBuffer::isFinished()
     else
     {
         return false;
+    }
+}
+//--------------------------------------------------------------
+bool videoBuffer::isNearlyFinished()
+{
+    if (progress >= buffer.size()-30) {
+     
     }
 }
 //--------------------------------------------------------------
