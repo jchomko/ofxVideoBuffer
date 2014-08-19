@@ -72,7 +72,8 @@ void videoBuffer::draw(int color)
             {
                 ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
             }
-            buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
+            //buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
+            buffer[progress].draw(0, 0, 320, 240);
         }
     }
     else
@@ -85,10 +86,21 @@ void videoBuffer::draw(int color)
 void videoBuffer::drawMini(int x, int y)
 {
     ofPushStyle();
-    ofSetColor(255);
     ofFill();
     if (!buffer.empty())
     {
+        if (progress <= 60)
+        {
+            ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+        }
+        else if (progress >= 60 && progress <= buffer.size()-30)
+        {
+            ofSetColor(255,255);
+        }
+        else if (progress >= buffer.size()-30)
+        {
+            ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+        }
         buffer[progress].draw(x, y,320/4,240/4);
     }
     
