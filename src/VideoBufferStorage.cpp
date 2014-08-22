@@ -12,6 +12,7 @@ videoBuffer::videoBuffer()
     progress = 0;
     canStartLoop = false;
     hasFinishedPlaying = false;
+    _fadeV = 255;
 
 }
 //--------------------------------------------------------------
@@ -59,22 +60,41 @@ void videoBuffer::draw(int color)
     {
         if (!buffer.empty() && buffer.size() >= 30)
         {
-            //ofSetColor(255, 255, 255);
-            if (progress <= 60)
+            if (_forceFade == false)
             {
-                ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+                if (progress <= 60)
+                {
+                    ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+                }
+                else if (progress >= 60 && progress <= buffer.size()-30)
+                {
+                    ofSetColor(255,255);
+                }
+                else if (progress >= buffer.size()-30)
+                {
+                    ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+                }
             }
-            else if (progress >= 60 && progress <= buffer.size()-30)
+            else if(_forceFade == true)
             {
-                ofSetColor(255,255);
+                ofSetColor(255,_fadeV);
+                if (_fadeV >= 1)
+                {
+                    _fadeV -=15;
+                }
+                else
+                {
+                    _fadeV = 0;
+                }
             }
-            else if (progress >= buffer.size()-30)
+            else
             {
-                ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+                
             }
             //buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
             buffer[progress].draw(0, 0, 320, 240);
         }
+            
     }
     else
     {
@@ -133,6 +153,7 @@ void videoBuffer::drawBlobPath()
 //--------------------------------------------------------------
 void videoBuffer::start()
 {
+    _forceFade = false;
     stillPlaying = true;
     canStartLoop = true;
 }
@@ -142,16 +163,19 @@ void videoBuffer::reset()
     progress = 0;
     stillPlaying = true;
     canStartLoop = true;
-    
+    _forceFade = false;
 }
 //--------------------------------------------------------------
 void videoBuffer::stop()
 {
-  
     stillPlaying = false;
     canStartLoop = false;
-    
-    //progress = 0;
+    _forceFade = false;
+}
+//--------------------------------------------------------------
+void videoBuffer::fadeOut()
+{
+    _forceFade == true;
 }
 //--------------------------------------------------------------
 bool videoBuffer::isFinished()

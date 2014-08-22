@@ -25,6 +25,8 @@ public:
     void getNewImages(vector<ofImage>img);
     void getPath(vector<ofVec2f>paths);
     int getNumberOfFrames();
+
+    vector<ofImage> buffer;
     
     bool isFinished();
     bool isPlaying();
@@ -34,15 +36,18 @@ public:
     void start();
     void stop();
     void clear();
+    void fadeOut();
     
 private:
-    vector<ofImage> buffer;
+
     vector<ofVec2f> bPath;
     int progress;
     int drawPathCounter;
     bool stillPlaying;
     bool canStartLoop;
     bool hasFinishedPlaying;
+    int _fadeV;
+    bool _forceFade;
 
 };
 
