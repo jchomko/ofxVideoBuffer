@@ -18,7 +18,7 @@ videoBuffer::videoBuffer()
 //--------------------------------------------------------------
 videoBuffer::~videoBuffer()
 {
-    //Danger Will Robinson!!!
+    
 }
 //--------------------------------------------------------------
 void videoBuffer::update()
