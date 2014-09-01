@@ -265,6 +265,10 @@ int videoBuffer::getNumberOfFrames()
     {
         return buffer.size();
     }
+    else
+    {
+        return 0;
+    }
 }
 //--------------------------------------------------------------
 void videoBuffer::clear()
