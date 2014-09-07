@@ -8,8 +8,8 @@
 #include <iostream>
 #include "ofMain.h"
 
-#define WIDTH 640
-#define HEIGHT 480
+#define WIDTH 320
+#define HEIGHT 240
 
 class videoBuffer : public ofSimpleApp {
     
