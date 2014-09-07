@@ -92,7 +92,7 @@ void videoBuffer::draw(int color)
                 
             }
             //buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
-            buffer[progress].draw(0, 0, 320, 240);
+            buffer[progress].draw(0, 0, WIDTH, HEIGHT);
         }
             
     }
