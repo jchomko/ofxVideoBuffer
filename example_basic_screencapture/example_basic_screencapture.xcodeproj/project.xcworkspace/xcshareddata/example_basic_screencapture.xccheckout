@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>85C2BDCF-7ECC-4CF8-A463-D4510E589616</string>
+	<key>IDESourceControlProjectName</key>
+	<string>example_basic_screencapture</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3C8803855815C3FD2AB0723FFC41DD10537F231E</key>
+		<string>wcode.org:/data/git/wproj/ofxVideoBuffers/</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>example_basic_screencapture/example_basic_screencapture.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3C8803855815C3FD2AB0723FFC41DD10537F231E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>wcode.org:/data/git/wproj/ofxVideoBuffers/</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3C8803855815C3FD2AB0723FFC41DD10537F231E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3C8803855815C3FD2AB0723FFC41DD10537F231E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxVideoBuffers</string>
+		</dict>
+	</array>
+</dict>
+</plist>
