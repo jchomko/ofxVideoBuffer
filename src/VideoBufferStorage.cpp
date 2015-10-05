@@ -13,6 +13,7 @@ videoBuffer::videoBuffer()
     canStartLoop = false;
     hasFinishedPlaying = false;
     _fadeV = 255;
+   buffer.reserve(900);
 
 }
 //--------------------------------------------------------------
