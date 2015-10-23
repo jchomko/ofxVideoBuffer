@@ -12,7 +12,7 @@ ofxVideoBuffers::ofxVideoBuffers()
     canStartLoop = false;
     hasFinishedPlaying = false;
     canFade = false;
-    fadeAmount = 10;
+    fadeAmount = 2;
 }
 //--------------------------------------------------------------
 ofxVideoBuffers::~ofxVideoBuffers()
