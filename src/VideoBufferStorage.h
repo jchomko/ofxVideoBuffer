@@ -41,7 +41,8 @@ public:
     void stop();
     void clear();
     void fadeOut();
-    
+    int fadeLength;
+
 private:
 
     vector<ofVec2f> bPath;

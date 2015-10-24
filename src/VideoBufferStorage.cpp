@@ -13,6 +13,7 @@ videoBuffer::videoBuffer()
     canStartLoop = false;
     hasFinishedPlaying = false;
     _fadeV = 255;
+    fadeLength = 10;
     buffer.reserve(900);
     for(int i = 0;i  < 900; i ++){
 	buffer[i].allocate(WIDTH, HEIGHT,OF_IMAGE_GRAYSCALE);
