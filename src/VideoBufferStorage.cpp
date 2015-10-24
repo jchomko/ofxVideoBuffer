@@ -13,7 +13,7 @@ videoBuffer::videoBuffer()
     canStartLoop = false;
     hasFinishedPlaying = false;
     _fadeV = 255;
-    fadeLength = 10;
+    fadeLength = 6;
     buffer.reserve(900);
     for(int i = 0;i  < 900; i ++){
 	buffer[i].allocate(WIDTH, HEIGHT,OF_IMAGE_GRAYSCALE);
@@ -62,21 +62,21 @@ void videoBuffer::draw(int color)
     
     if (canStartLoop == true)
     {
-        if (!buffer.empty() && buffer.size() >= 30)
+        if (!buffer.empty() && buffer.size() >= fadeLength)
         {
             if (_forceFade == false)
             {
-                if (progress <= 60)
+                if (progress <= fadeLength) //*2
                 {
-                    ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
+                    ofSetColor(255,ofMap(progress, 0, fadeLength, 0, 255)); //*2
                 }
-                else if (progress >= 60 && progress <= buffer.size()-30)
+                else if (progress >= fadeLength && progress <= buffer.size()-fadeLength)
                 {
                     ofSetColor(255,255);
                 }
-                else if (progress >= buffer.size()-30)
+                else if (progress >= buffer.size()-fadeLength)
                 {
-                    ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
+                    ofSetColor(255,ofMap(progress, buffer.size()-fadeLength, buffer.size()-1, 255, 0));
                 }
             }
             else if(_forceFade == true)
