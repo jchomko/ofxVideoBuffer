@@ -53,6 +53,6 @@ private:
     bool hasFinishedPlaying;
     int _fadeV;
     bool _forceFade;
-
+    long frameTimer;
 };
 

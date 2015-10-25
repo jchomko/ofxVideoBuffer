@@ -18,11 +18,12 @@ videoBuffer::videoBuffer()
     for(int i = 0;i  < 900; i ++){
 	buffer[i].allocate(WIDTH, HEIGHT,OF_IMAGE_GRAYSCALE);
 	}
+
 }
 //--------------------------------------------------------------
 videoBuffer::~videoBuffer()
 {
-    
+
 }
 //--------------------------------------------------------------
 void videoBuffer::update()
@@ -33,24 +34,27 @@ void videoBuffer::update()
         {
             if(!buffer.empty() && progress <= buffer.size()-1)
             {
-                if (ofGetFrameNum() % 1 == 0)
-                {
+ 		//time based playback???
+//                if (ofGetFrameNum() % 1 == 0)
+                if (ofGetElapsedTimeMillis() - frameTimer > 33)
+		{
                     progress++;
+			frameTimer = ofGetElapsedTimeMillis();
                 }
             }
             if (progress >= buffer.size()-30)
             {
-             
+
             }
         }
         else
         {
-           
+
         }
     }
     else
     {
-        
+
     }
 }
 //--------------------------------------------------------------
@@ -197,7 +201,7 @@ bool videoBuffer::isFinished()
 //--------------------------------------------------------------
 bool videoBuffer::isNearlyFinished()
 {
-    if (progress >= buffer.size()-30) {
+    if (progress >= buffer.size()-20) {
      
     }
 }
