@@ -39,7 +39,7 @@ void videoBuffer::update()
                 if (ofGetElapsedTimeMillis() - frameTimer > 33)
 		{
                     progress++;
-			frameTimer = ofGetElapsedTimeMillis();
+		    frameTimer = ofGetElapsedTimeMillis();
                 }
             }
             if (progress >= buffer.size()-30)
@@ -202,9 +202,12 @@ bool videoBuffer::isFinished()
 bool videoBuffer::isNearlyFinished()
 {
     if (progress >= buffer.size()-20) {
-     
-    }
+	return true; 
+    }else{
+	return false;
+   }
 }
+
 //--------------------------------------------------------------
 bool videoBuffer::isPlaying()
 {
