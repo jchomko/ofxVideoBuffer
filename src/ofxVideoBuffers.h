@@ -47,4 +47,5 @@ class ofxVideoBuffers {
         bool stillPlaying;
         bool canStartLoop;
         bool hasFinishedPlaying;
+	long frameTimer;
 };

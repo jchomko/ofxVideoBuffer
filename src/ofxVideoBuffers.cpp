@@ -13,6 +13,7 @@ ofxVideoBuffers::ofxVideoBuffers()
     hasFinishedPlaying = false;
     canFade = false;
     fadeAmount = 2;
+    frameTimer = 0;
 }
 //--------------------------------------------------------------
 ofxVideoBuffers::~ofxVideoBuffers()
@@ -45,9 +46,11 @@ void ofxVideoBuffers::update()
         {
             if(!buffer.empty() && progress <= buffer.size()-1)
             {
-                if (ofGetFrameNum() % 1 == 0)
+		if(ofGetElapsedTimeMillis() - frameTimer > 33)
+                //if (ofGetFrameNum() % 1 == 0)
                 {
                     progress++;
+			frameTimer = ofGetElapsedTimeMillis();
                 }
 
             }
