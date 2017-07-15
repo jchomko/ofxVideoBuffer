@@ -36,7 +36,7 @@ void videoBuffer::update()
             {
  		//time based playback???
 //                if (ofGetFrameNum() % 1 == 0)
-                if (ofGetElapsedTimeMillis() - frameTimer > 33)
+                if (ofGetElapsedTimeMillis() - frameTimer > 1000/FRAMERATE)
 		{
                     progress++;
 		    frameTimer = ofGetElapsedTimeMillis();
