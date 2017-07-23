@@ -34,14 +34,13 @@ void videoBuffer::update()
         {
             if(!buffer.empty() && progress <= buffer.size()-1)
             {
- 		//time based playback???
 //                if (ofGetFrameNum() % 1 == 0)
-                if (ofGetElapsedTimeMillis() - frameTimer > 1000/FRAMERATE)
-		{
+                if (ofGetElapsedTimeMillis() - frameTimer > 1000/FRAMERATE){
                     progress++;
-		    frameTimer = ofGetElapsedTimeMillis();
+                    frameTimer = ofGetElapsedTimeMillis();
                 }
             }
+
             if (progress >= buffer.size()-30)
             {
 

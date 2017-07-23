@@ -10,7 +10,7 @@
 
 #define WIDTH 320
 #define HEIGHT 240
-#define FRAMERATE 25
+#define FRAMERATE 30
 
 class videoBuffer : public ofSimpleApp {
     
