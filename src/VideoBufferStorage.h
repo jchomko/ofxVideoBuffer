@@ -12,7 +12,7 @@
 #define HEIGHT 240
 #define FRAMERATE 25
 
-class videoBuffer : public ofSimpleApp {
+class videoBuffer {
     
 public:
     videoBuffer();

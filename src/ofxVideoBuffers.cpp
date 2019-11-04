@@ -228,11 +228,11 @@ void ofxVideoBuffers::setFadeAmount(int howManyFramesToFade)
     fadeAmount = howManyFramesToFade;
 }
 //--------------------------------------------------------------
-bool ofxVideoBuffers::isEmpty()
-{
+// bool ofxVideoBuffers::isEmpty()
+// {
 
 
-}
+// }
 //--------------------------------------------------------------
 int ofxVideoBuffers::getNumberOfFrames()
 {

@@ -30,7 +30,7 @@ class ofxVideoBuffers {
         bool isFinished();
         bool isPlaying();
         bool isNearlyFinished();
-        bool isEmpty();
+        // bool isEmpty();
 
         int getNumberOfFrames();
         int getCurrentFrameNumber();
