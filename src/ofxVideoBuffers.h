@@ -1,51 +1,59 @@
 //--------------------------------------------------------------
-//* Name: ofxVideoBuffers.h
+//* Name: VideoBufferStorage.h
+//* Project: Playable City 2014 Award
 //* Author: David Haylock
-//* Creation Date: 02-10-2014
+//* Creation Date: 28-07-2014
 //--------------------------------------------------------------
 
 #include <iostream>
 #include "ofMain.h"
 
-class ofxVideoBuffers {
+#define WIDTH 320
+#define HEIGHT 240
+#define FRAMERATE 25
 
-    public:
-        ofxVideoBuffers();
-        ~ofxVideoBuffers();
+class videoBuffer{
+    
+public:
+    videoBuffer();
+    // ~videoBuffer();
+    
+    void update();
+    
+    void draw(int color);
+    void drawBlobPath();
+    void drawMini(int x, int y);
+    void renderImages();
+    
+    // Getters
+    void getNewImage(ofImage img);
+    void getNewImages(vector<ofImage>img);
+    void getPath(vector<ofVec2f>paths);
+    int getNumberOfFrames();
 
-        void update();
-        void drawFullscreen();
-        void draw(int x,int y,int width,int height);
-        void drawMini(int x, int y);
+    vector<ofImage> buffer;
+    
+    bool isFinished();
+    bool isPlaying();
+    bool isNearlyFinished();
+    
+    void reset();
+    void start();
+    void stop();
+    void clear();
+    void fadeOut();
+    int fadeLength;
 
-        void getNewImage(ofImage img);
-        void getNewImage(ofPixels pix);
-        void getNewImage(ofPixels pix, ofImageType type = OF_IMAGE_COLOR);
+private:
 
-        vector<ofImage> buffer;
-
-        void setFade(bool fade);
-        void setFadeAmount(int howManyFramesToFade);
-
-        bool isFinished();
-        bool isPlaying();
-        bool isNearlyFinished();
-        // bool isEmpty();
-
-        int getNumberOfFrames();
-        int getCurrentFrameNumber();
-
-        void reset();
-        void start();
-        void stop();
-        void clear();
-
-    private:
-        bool canFade;
-        int fadeAmount;
-        int progress;
-        bool stillPlaying;
-        bool canStartLoop;
-        bool hasFinishedPlaying;
-	long frameTimer;
+    vector<ofVec2f> bPath;
+    int progress;
+    int drawPathCounter;
+    bool stillPlaying;
+    bool canStartLoop;
+    bool hasFinishedPlaying;
+    int _fadeV;
+    bool _forceFade;
+    long frameTimer;
 };
+

@@ -1,167 +1,139 @@
 //--------------------------------------------------------------
-//* Name: ofxVideoBuffers.cpp
+//* Name: VideoBufferStorage.cpp
+//* Project: Playable City 2014 Award
 //* Author: David Haylock
-//* Creation Date: 02-10-2014
+//* Creation Date: 28-07-2014
 //--------------------------------------------------------------
 
 #include "ofxVideoBuffers.h"
 //--------------------------------------------------------------
-ofxVideoBuffers::ofxVideoBuffers()
+videoBuffer::videoBuffer()
 {
     progress = 0;
     canStartLoop = false;
     hasFinishedPlaying = false;
-    canFade = false;
-    fadeAmount = 2;
-    frameTimer = 0;
-}
-//--------------------------------------------------------------
-ofxVideoBuffers::~ofxVideoBuffers()
-{
+    _fadeV = 255;
+    fadeLength = 6;
+    buffer.reserve(900);
+
+    for(int i = 0;i  < 900; i ++){
+	   buffer[i].allocate(WIDTH, HEIGHT,OF_IMAGE_GRAYSCALE);
+	}
+    cout << "video buffer constructor finished " << endl;
 
 }
-//--------------------------------------------------------------
-void ofxVideoBuffers::getNewImage(ofImage img)
-{
-    buffer.push_back(img);
-}
-//--------------------------------------------------------------
-void ofxVideoBuffers::getNewImage(ofPixels pix)
-{
-    buffer.push_back(pix);
-}
 
-void ofxVideoBuffers::getNewImage(ofPixels pix, ofImageType type)
-{
-    pix.setImageType(type);
-    buffer.push_back(pix);
-}
+// //--------------------------------------------------------------
+// videoBuffer::~videoBuffer()
+// {
+
+// }
 //--------------------------------------------------------------
-void ofxVideoBuffers::update()
+void videoBuffer::update()
 {
-    //cout<<"progress"<<progress<<endl;
     if(canStartLoop == true)
     {
         if (!isFinished())
         {
             if(!buffer.empty() && progress <= buffer.size()-1)
             {
-		if(ofGetElapsedTimeMillis() - frameTimer > 33)
-                //if (ofGetFrameNum() % 1 == 0)
-                {
+//                if (ofGetFrameNum() % 1 == 0)
+                if (ofGetElapsedTimeMillis() - frameTimer > 1000/FRAMERATE){
                     progress++;
-			frameTimer = ofGetElapsedTimeMillis();
+                    frameTimer = ofGetElapsedTimeMillis();
                 }
-
             }
+
             if (progress >= buffer.size()-30)
             {
 
             }
         }
-        else  {   }
+        else
+        {
+
+        }
     }
-    else  {   }
+    else
+    {
+
+    }
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::draw(int x,int y,int width,int height)
+void videoBuffer::draw(int color)
 {
     ofPushStyle();
+    //isNearlyFinished();
+    
+    
     if (canStartLoop == true)
     {
-        if (!buffer.empty() && buffer.size() >= 30)
+        if (!buffer.empty() && buffer.size() >= fadeLength)
         {
-            if (canFade)
+            if (_forceFade == false)
             {
-                if (progress <= fadeAmount)
+                if (progress <= fadeLength) //*2
                 {
-                    ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
+                    ofSetColor(255,ofMap(progress, 0, fadeLength, 0, 255)); //*2
                 }
-                else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
+                else if (progress >= fadeLength && progress <= buffer.size()-fadeLength)
                 {
                     ofSetColor(255,255);
                 }
-                else if (progress >= buffer.size()-fadeAmount)
+                else if (progress >= buffer.size()-fadeLength)
                 {
-                    ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
+                    ofSetColor(255,ofMap(progress, buffer.size()-fadeLength, buffer.size()-1, 255, 0));
+                }
+            }
+            else if(_forceFade == true)
+            {
+                ofSetColor(255,_fadeV);
+                if (_fadeV >= 1)
+                {
+                    _fadeV -=15;
+                }
+                else
+                {
+                    _fadeV = 0;
                 }
             }
             else
             {
-                // Keep Color Constant
-                ofSetColor(255, 255, 255);
+                
             }
-            // Here is the main drawing bit
-            buffer[progress].draw(x, y, width, height);
+            //buffer[progress].draw(0, 0,ofGetWidth(),ofGetHeight());
+            buffer[progress].draw(0, 0, WIDTH, HEIGHT);
         }
-        else  {   }
+            
     }
-    ofPopStyle();
-}
-//--------------------------------------------------------------
-void ofxVideoBuffers::drawFullscreen()
-{
-    ofPushStyle();
-    if (canStartLoop == true)
+    else
     {
-        if (!buffer.empty() && buffer.size() >= fadeAmount)
-        {
-            if (canFade)
-            {
-                if (progress <= fadeAmount)
-                {
-                    ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
-                }
-                else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
-                {
-                    ofSetColor(255,255);
-                }
-                else if (progress >= buffer.size()-fadeAmount)
-                {
-                    ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
-                }
-            }
-            else
-            {
-                // Keep Color Constant
-                ofSetColor(255, 255, 255);
-            }
-            // Here is the main drawing bit
-            buffer[progress].draw(0, 0, ofGetWidth(),ofGetHeight());
-        }
-        else  {   }
+        
     }
     ofPopStyle();
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::drawMini(int x, int y)
+void videoBuffer::drawMini(int x, int y)
 {
     ofPushStyle();
     ofFill();
     if (!buffer.empty())
     {
-        if (canFade)
+        if (progress <= 60)
         {
-            if (progress <= fadeAmount)
-            {
-                ofSetColor(255,ofMap(progress, 0, fadeAmount, 0, 255));
-            }
-            else if (progress >= fadeAmount && progress <= buffer.size()-fadeAmount)
-            {
-                ofSetColor(255,255);
-            }
-            else if (progress >= buffer.size()-30)
-            {
-                ofSetColor(255,ofMap(progress, buffer.size()-fadeAmount, buffer.size()-1, 255, 0));
-            }
+            ofSetColor(255,ofMap(progress, 0, 60, 0, 255));
         }
-        else
+        else if (progress >= 60 && progress <= buffer.size()-30)
         {
-            ofSetColor(255, 255, 255);
+            ofSetColor(255,255);
+        }
+        else if (progress >= buffer.size()-30)
+        {
+            ofSetColor(255,ofMap(progress, buffer.size()-30, buffer.size()-1, 255, 0));
         }
         buffer[progress].draw(x, y,320/4,240/4);
     }
-
+    
     ofDrawBitmapStringHighlight(ofToString(progress), x, y);
     ofSetColor(0, 0, 0);
     ofNoFill();
@@ -169,26 +141,54 @@ void ofxVideoBuffers::drawMini(int x, int y)
     ofPopStyle();
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::start()
+void videoBuffer::drawBlobPath()
 {
+    ofPushMatrix();
+    ofNoFill();
+    if (!bPath.empty())
+    {
+        ofSetColor(255, 0, 0);
+        ofBeginShape();
+        for (int p = 0; p < bPath.size(); p++)
+        {
+            ofVertex(ofMap(bPath[p].x,0,320,0,ofGetWidth()),ofMap(bPath[p].y,0,240,0,ofGetHeight()));
+        }
+        ofEndShape(false);
+    }
+    
+    ofSetColor(255);
+    ofPopMatrix();
+    
+}
+//--------------------------------------------------------------
+void videoBuffer::start()
+{
+    _forceFade = false;
     stillPlaying = true;
     canStartLoop = true;
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::reset()
+void videoBuffer::reset()
 {
     progress = 0;
     stillPlaying = true;
     canStartLoop = true;
+    _forceFade = false;
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::stop()
+void videoBuffer::stop()
 {
     stillPlaying = false;
     canStartLoop = false;
+    _forceFade = false;
 }
 //--------------------------------------------------------------
-bool ofxVideoBuffers::isFinished()
+void videoBuffer::fadeOut()
+{
+    _forceFade == true;
+}
+//--------------------------------------------------------------
+bool videoBuffer::isFinished()
 {
     if (progress >= buffer.size()-1 && canStartLoop == true)
     {
@@ -201,40 +201,80 @@ bool ofxVideoBuffers::isFinished()
     }
 }
 //--------------------------------------------------------------
-bool ofxVideoBuffers::isNearlyFinished()
+bool videoBuffer::isNearlyFinished()
 {
-    if (progress >= buffer.size()-30)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    if (progress >= buffer.size()-20) {
+	return true; 
+    }else{
+	return false;
+   }
 }
+
 //--------------------------------------------------------------
-bool ofxVideoBuffers::isPlaying()
+bool videoBuffer::isPlaying()
 {
     return stillPlaying;
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::setFade(bool fade)
+void videoBuffer::getPath(vector<ofVec2f> paths)
 {
-    canFade = fade;
+    
+    if (paths.empty())
+    {
+        ofLog(OF_LOG_ERROR,"Nothing to Copy to the Path ... Its going to Crash!");
+        return;
+    }
+    else if (!paths.empty() && paths.size() <= 30)
+    {
+        ofLog(OF_LOG_ERROR,"No the Path is Too Small ... Its going to Crash! " + ofToString(paths.size()));
+        return;
+    }
+    else if (!paths.empty() && paths.size() >=30)
+    {
+        bPath = paths;
+        ofLog(OF_LOG_NOTICE,"Paths Copied");
+    }
+    else
+    {
+        ofLog(OF_LOG_ERROR,"How the Hell did you end up here!!!");
+    }
+    
 }
 //--------------------------------------------------------------
-void ofxVideoBuffers::setFadeAmount(int howManyFramesToFade)
+void videoBuffer::getNewImage(ofImage img)
 {
-    fadeAmount = howManyFramesToFade;
+    buffer.push_back(img);
+    cout << "got new image. Buffer is : " << buffer.size() << endl;
+    
 }
 //--------------------------------------------------------------
-// bool ofxVideoBuffers::isEmpty()
-// {
-
-
-// }
+void videoBuffer::getNewImages(vector<ofImage>img)
+{
+    
+    if (img.empty())
+    {
+        ofLog(OF_LOG_ERROR,"Nothing to Copy to the Buffer ... Its going to Crash!");
+        return;
+    }
+    else if (!img.empty() && img.size() <= 30)
+    {
+        ofLog(OF_LOG_ERROR,"No the Buffer is Too Small ... Its going to Crash! " + ofToString(img.size()));
+        
+        return;
+    }
+    else if (!img.empty() && img.size() >=30)
+    {
+        buffer = img;
+        ofLog(OF_LOG_NOTICE,"Buffer Copied");
+    }
+    else
+    {
+        ofLog(OF_LOG_ERROR,"How the Hell did you end up here!!!");
+    }
+    
+}
 //--------------------------------------------------------------
-int ofxVideoBuffers::getNumberOfFrames()
+int videoBuffer::getNumberOfFrames()
 {
     if (!buffer.empty())
     {
@@ -246,19 +286,12 @@ int ofxVideoBuffers::getNumberOfFrames()
     }
 }
 //--------------------------------------------------------------
-int ofxVideoBuffers::getCurrentFrameNumber()
-{
-    if (!buffer.empty())
-    {
-        return progress;
-    }
-    else
-    {
-        return 0;
-    }
-}
-//--------------------------------------------------------------
-void ofxVideoBuffers::clear()
+void videoBuffer::clear()
 {
     buffer.clear();
+}
+//--------------------------------------------------------------
+void videoBuffer::renderImages()
+{
+    
 }
